@@ -32,7 +32,7 @@
                                                 Merci de saisir votre prénom.
                                           </small>
                                     </span>
-                                    <span *ngIf=" problemeForm.get('prenom').errors['minlength']">
+                                    <span *ngIf=" problemeForm.get('prenom').errors['nbreCaracteresInsuffisant']">
                                           <small class="text-muted">
                                                 Veillez entrer plus de caractères.
                                           </small>
