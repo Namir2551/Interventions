@@ -41,16 +41,11 @@
 
                               </div>
                         </div>
-                  </form>
-            </div>
 
-            <br>
-            
-            <div class="card-text">
-                  <form class="form-horizontal"
-                  novalidate
-                  (ngSubmit)="save()"
-                  [formGroup]="problemeForm">
+                        <br>
+                        <br>
+
+                        <!--NOm-->
                         <div class="form-group row">
                               <label for="nomId" class="col-md-2 col-form-label text-right">Nom :</label>
                               <div class="col-md-10">
@@ -83,23 +78,45 @@
 
                               </div>
                         </div>
+                        <br>
+                        <br>
+
+                        <div class="form-group row">
+                              <label for="typeProblemeId" class="col-md-2 col-form-label text-right">Type de Problème :</label>
+                              <div class="col-md-10">
+                                    <select class="form-control" 
+                                          id="typeProblemeId"
+                                          formControlName="typeProbleme"
+                                          [ngClass]="{'is-valid': (problemeForm.get('typeProbleme').touched ||  
+                                          problemeForm.get('typeProbleme').dirty) &&
+                                          problemeForm.get('typeProbleme').valid,
+                                          'is-invalid': (problemeForm.get('typeProbleme').touched ||
+                                          problemeForm.get('typeProbleme').dirty) &&
+                                          !problemeForm.get('typeProbleme').valid}"
+                                    >
+                                          <option value="">Sélectionner un type de problème (obligatoire)</option>
+                                          <option *ngFor="let typeProbleme of typesProbleme" [value]="typeProbleme.id">{{typeProbleme.descriptionTypeProbleme}}</option>
+                                    </select>
+                                    <span class="form-text" *ngIf="(problemeForm.get('typeProbleme').touched ||
+                                    problemeForm.get('typeProbleme').dirty) &&
+                                    (problemeForm.get('typeProbleme').errors)">
+                                          <span *ngIf= "problemeForm.get('typeProbleme').errors['required']">
+                                                <small class="text-muted">
+                                                      Merci de saisir un problème.
+                                                </small>
+                                          </span>
+                                    </span>
+                                    
+
+                              </div>
+
+                        </div>
+
+                        
                   </form>
             </div>
-
-            <br>
             
-            <div class="form-group row">
-                  <label for="typeProblemeId" class="col-md-2 col-form-label text-right">Type de Problème :</label>
-                  <div class="col-md-10">
-                        <select class="form-control" 
-                              id="typeProblemeId"
-                              formControlName="typeProbleme"
-                        >
-                              <option value="">Sélectionner un type de problème (obligatoire)</option>
-                              <option *ngFor="let typeProbleme of typesProbleme" [value]="typeProbleme.id">{{typeProbleme.descriptionTypeProbleme}}</option>
-                        </select>
-                  </div>
-            </div>
+      
             <div class="card-footer">
                   <button class="btn btn-primary" type="submit">Sauvegarder</button>
             </div>
