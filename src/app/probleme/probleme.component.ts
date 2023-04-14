@@ -72,7 +72,7 @@ export class ProblemeComponent implements OnInit {
       {
         if(TypeNotif === 'ParMessagetexte')
         {
-          notifTelephone.setValidators([Validators.required]);      
+          notifTelephone.setValidators([Validators.required, Validators.minLength(10),  Validators.maxLength(10), Validators.pattern('[0-9]+')]);    
           notifTelephone.enable();  
              
         }
