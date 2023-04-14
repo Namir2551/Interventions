@@ -94,5 +94,97 @@ describe('ProblemeComponent', () => {
   });
   
 
+
+
+
+
+  it('#19 | Zone TELEPHONE est désactivée quand notifier par courriel', () => {
+    component.appliquerNotif('ParCourriel');
+    let zone = component.problemeForm.get('telephone');
+    expect(zone.status).toEqual('DISABLED'); 
+  });
+
+  it('#20 | Zone ADRESSE COURRIEL est activée quand notif par courriel', () => {
+    component.appliquerNotif('ParCourriel');
+    let zone = component.problemeForm.get('courrielGroup.courriel');
+    expect(zone.status).toEqual('INVALID')
+  });
+
+  
+  it('#21 | Zone CONFIRMER COURRIEL est activée quand notifier par courriel', () => {
+    component.appliquerNotif('ParCourriel');
+    let zone = component.problemeForm.get('courrielGroup.courrielConfirmation');
+    expect(zone.status).toEqual('INVALID'); 
+  });
+
+  it('#22 | Zone ADRESSE COURRIEL est invalide sans valeur quand notifier par courriel', () => {
+    component.appliquerNotif('ParCourriel');
+    let zone = component.problemeForm.get('courrielGroup.courriel');
+    expect(zone.status).toEqual('INVALID'); 
+  });
+
+  it('#23 | Zone CONFIRMER COURRIEL est invalide sans valeur quand notifier par courriel', () => {
+    component.appliquerNotif('ParCourriel');
+    let zone = component.problemeForm.get('courrielGroup.courrielConfirmation');
+    expect(zone.status).toEqual('INVALID'); 
+  });
+
+  it('#24 | Zone ADRESSE COURRIEL est invalide avec un format non conforme', () => {
+    component.appliquerNotif('ParCourriel');
+    let zone = component.problemeForm.get('courrielGroup.courriel');
+    expect(zone.status).toEqual('INVALID'); 
+  });
+  
+
+
+  it('#25 | Zone COURRIEL sans valeur et Zone CONFIRMER COURRIEL avec valeur valide retourne null', () => {
+    component.appliquerNotif("ParCourriel")
+    let courriel = component.problemeForm.get('courrielGroup.courriel');
+    let courrielConfirmation = component.problemeForm.get('courrielGroup.courrielConfirmation');
+    let groupe = component.problemeForm.get('courrielGroup');
+    let errors = {};
+    courrielConfirmation.setValue('gui@hotmail.com');
+    courriel.setValue('');
+    errors = groupe.errors || {};
+    expect(errors['match']).toBeUndefined();
+  });
+  it('#26 | Zone COURRIEL avec valeur valide et Zone CONFIRMER COURRIEL sans valeur retourne null', () => {
+    component.appliquerNotif("ParCourriel")
+    let courriel = component.problemeForm.get('courrielGroup.courriel');
+    let courrielConfirmation = component.problemeForm.get('courrielGroup.courrielConfirmation');
+    let groupe = component.problemeForm.get('courrielGroup');
+    let errors = {};
+    courriel.setValue('gui@hotmail.com');
+    courrielConfirmation.setValue('');
+    errors = groupe.errors || {};
+    expect(errors['match']).toBeUndefined();
+  });
+  it('#27 | Zone COURRIEL et CONFIRMER COURRIEL sont invalides si les valeurs sont différentes quand notifier par courriel', () => {
+      component.appliquerNotif("ParCourriel")
+      let courriel = component.problemeForm.get('courrielGroup.courriel');
+      let courrielConfirmation = component.problemeForm.get('courrielGroup.courrielConfirmation');
+      let groupe = component.problemeForm.get('courrielGroup');
+      let errors = {};
+      courriel.setValue('gui@hotmail.com');
+      courrielConfirmation.setValue('guill@hotmail.com');
+      errors = groupe.errors || {};
+      expect(errors['match']).toBeUndefined();
+  });
+  it('#28 | Zone COURRIEL et Zone CONFIRMER COURRIEL sont valides si les valeurs sont identiques quand notifier par courriel', () => {
+      component.appliquerNotif("ParCourriel")
+      let courriel = component.problemeForm.get('courrielGroup.courriel');
+      let courrielConfirmation = component.problemeForm.get('courrielGroup.courrielConfirmation');
+      let groupe = component.problemeForm.get('courrielGroup');
+      let errors = {};
+      courriel.setValue('gui@hotmail.com');
+      courrielConfirmation.setValue('');
+      errors = groupe.errors || {};
+      expect(errors['match']).toBeUndefined();
+  });
+
+
+
+
+
 });
 

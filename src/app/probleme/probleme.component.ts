@@ -58,8 +58,9 @@ export class ProblemeComponent implements OnInit {
     notifTelephone.disable();
 
     // courriel 
-    if (TypeNotif === 'ParCourriel') {   
-            notifCourriel.setValidators([Validators.required]);      
+    if (TypeNotif === 'ParCourriel') {  
+            
+            notifCourriel.setValidators([Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+')]);      
             notifCourriel.enable();  
             confirmationCourriel.setValidators([Validators.required]);              
             confirmationCourriel.enable();  
@@ -82,4 +83,9 @@ export class ProblemeComponent implements OnInit {
     notifCourriel.updateValueAndValidity();   
     notifTelephone.updateValueAndValidity();      
   }
+
+  
+
+
+
 }
