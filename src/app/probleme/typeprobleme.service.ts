@@ -9,12 +9,14 @@ import { ITypeProbleme } from './typeprobleme';
 })
 export class TypeproblemService {
 
-  constructor(private http: HttpClient) { }
+  
 
-  private baseUrl = 'api/typesprobleme';
+  //private baseUrl = 'api/typesprobleme';
+  private baseUrl = 'https://localhost:7093/v2/probleme'
+  constructor(private _http: HttpClient) { }
 
   obtenirTypesProbleme(): Observable<ITypeProbleme[]> {
-    return this.http.get<ITypeProbleme[]>(this.baseUrl).pipe(
+    return this._http.get<ITypeProbleme[]>(this.baseUrl).pipe(
         tap(data => console.log('obtenirTypesProbleme: ' + JSON.stringify(data))),
         catchError(this.handleError)
     );
@@ -33,6 +35,6 @@ export class TypeproblemService {
       errorMessage = `Server returned code: ${err.status}, error message is: ${err.message}`;
     }
     console.error(errorMessage);
-    return throwError(errorMessage);
+    return throwError(() => new Error(err.message));
   }
 }
